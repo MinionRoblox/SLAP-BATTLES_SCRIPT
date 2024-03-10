@@ -41,7 +41,7 @@ PlayerTab:AddSlider({
 
    local CombatTab = Window:MakeTab({
 	Name = "Combat",
-	Icon = "rbxassetid://10708917087",
+	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
@@ -49,10 +49,26 @@ CombatTab:AddToggle({
 	Name = "Null Spam",
 	Default = false,
 	Callback = function(Value)
-game:GetService("ReplicatedStorage").NullAbility:FireServer()
-end
+                NullSpam = Value
+                while NullSpam do
+                game:GetService("ReplicatedStorage").NullAbility:FireServer()
+                task.wait()
+                end
+                 end    
 })
-      
+
+CombatTab:AddToggle({
+        Name = "Rhythm Spam",
+        Default = false,
+        Callback = function(Value)
+RhythmSpam = Value
+while RhythmSpam do
+game:GetService("ReplicatedStorage").rhythmevent:FireServer("AoeExplosion",0)
+task.wait(0.1)
+end
+        end    
+    })
+
 local MiscTab = Window:MakeTab({
 	Name = "Misc",
 	Icon = "rbxassetid://4483345998",
@@ -84,11 +100,11 @@ MiscTab:AddDropdown({
         end    
       })
 
-MiscTab:AddButton({
+      MiscTab:AddButton({
 	Name = "Auto Win Retro Obby",
 	Callback = function()
                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-27776.0977, 173.634323, 4834.86084, 0, 0, 1, 0, 1, -0, -1, 0, 0)
-        end
-        })
+        end 
+})
 
         OrionLib:Init()
